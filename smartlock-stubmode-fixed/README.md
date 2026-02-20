@@ -1,32 +1,30 @@
+# Dual‑Mode Smart Door Lock (Fingerprint + RFID) — ESP32 (Phase‑2)
 
-# Dual‑Mode Smart Door Lock (Fingerprint + RFID) (ESP32)
+This repository contains the **Phase‑2 firmware** for a dual‑authentication smart door‑lock system using **RFID + Fingerprint**.  
+The design focuses on **software architecture, OOP principles, storage, and controller logic**, while the **hardware modules will be added in later phases**.
 
-**Runs without hardware (STUB mode)** and supports real sensors later.
+➡️ **IMPORTANT:**  
+This version of the firmware runs in **STUB MODE**, meaning it **works only in a basic, terminal‑level simulation**.  
+tjhere is no need  **do NOT need any hardware** to build or test this Phase‑2 version.  
+However, to achieve **full real-world functionality**, you will need actual hardware in future phases (ESP32 board, RFID RC522, Fingerprint R307/AS608, relay/solenoid).
 
-## Environments
-- **esp32dev_stub (default)** → no hardware required. Simulate RFID/FP/Admin via Serial.
-- **esp32dev_real** → real modules (RC522 + R307/AS608 + relay) when hardware is available.
+---
 
-## Quick Demo (no hardware)
-1. Open this folder in VS Code (PlatformIO installed).
-2. Build: PlatformIO ✓ Build (or `pio run -e esp32dev_stub`).
-3. (Without a board you can skip Serial Monitor.) To show expected output, see `docs/sample-serial-output.txt`.
-4. Push to GitHub: CI at `.github/workflows/build.yml` compiles the stub env on each push.
+## 🌟 Features (Phase‑2)
+- Full **Object‑Oriented Architecture**
+  - `AccessMethod` interface (Strategy Pattern)
+  - `RFIDAccess` & `FingerprintAccess` modules
+  - `LockActuator` abstraction (`SolenoidLockActuator`)
+  - `LockController` orchestrates OR‑logic and auto‑lock
 
-## With an ESP32 (still no sensors)
-1. Plug ESP32 via USB → Build → Upload → Monitor @ 115200.
-2. In Serial Monitor type:
-   - `r` → simulate RFID success (unlock)
-   - `p` → simulate Fingerprint success (unlock)
-   - `a` → Admin window (10s): `e` enroll ID, `d` delete ID, `c` authorize UID, `x` remove UID
-3. Auto‑lock triggers after 5s by default.
+- **EventBus (Observer Pattern)** for internal communication  
+  Decouples authentication modules from feedback systems.
 
-## Storage
-Authorization list lives at `/authorized.json` (LittleFS):
-```json
-{"rfid_uids":["DE AD BE EF"], "fp_ids":[1,7,12]}
-```
-
-## Notes
-- STUB mode removes **sensor I/O**, but keeps the same OOP architecture.
-- Later, switch to `esp32dev_real` and wire hardware per `include/Config.h`.
+- **Persistent Storage**  
+  `/authorized.json` saved using **LittleFS + ArduinoJson v7**  
+  Stores:
+  ```json
+  {
+    "rfid_uids": ["DE AD BE EF"],
+    "fp_ids": [1, 7, 12]
+  }
