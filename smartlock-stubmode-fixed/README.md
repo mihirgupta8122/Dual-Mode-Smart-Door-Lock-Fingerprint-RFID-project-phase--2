@@ -1,5 +1,5 @@
 
-# Dual‑Mode Smart Door Lock (Fingerprint + RFID) — Non‑IoT Firmware (ESP32)
+# Dual‑Mode Smart Door Lock (Fingerprint + RFID) (ESP32)
 
 **Runs without hardware (STUB mode)** and supports real sensors later.
 
