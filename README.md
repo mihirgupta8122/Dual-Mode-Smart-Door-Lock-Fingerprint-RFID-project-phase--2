@@ -9,7 +9,7 @@ Group - 9
 ---
 
 ## 🧭 TL;DR
-- **No hardware today?** Build the **stub** env. Show the local **SUCCESS** banner and the **GitHub Actions green check**. For expected console output, see [`docs/sample-serial-output.txt`](docs/sample-serial-output.txt).
+- **No hardware today?** Build the **stub** env. Show the local **SUCCESS** banner and the **GitHub Actions green check**. For expected console output
 - **Have an ESP32 (no sensors)?** Upload the **stub** firmware and simulate everything from the Serial Monitor using your keyboard.
 - **Have full hardware later?** Switch to the **real** env and wire RC522 + R307/AS608 + relay as per `include/Config.h`.
 
