@@ -25,7 +25,7 @@ Group - 9
 ---
 
 most important Environments
-The default env is the **stub** (no hardware).
+The default env is the **stub** (no hardware)
 
 ```ini
 [platformio]
