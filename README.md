@@ -8,14 +8,14 @@ Group - 9
 
 ---
 
-## 🧭 TL;DR
+  INFOrmation
 - **No hardware today?** Build the **stub** env. Show the local **SUCCESS** banner and the **GitHub Actions green check**. For expected console output
 - **Have an ESP32 (no sensors)?** Upload the **stub** firmware and simulate everything from the Serial Monitor using your keyboard.
 - **Have full hardware later?** Switch to the **real** env and wire RC522 + R307/AS608 + relay as per `include/Config.h`.
 
 ---
 
-## ✨ Features
+##  Features
 - **Dual authentication strategies (OOP):** `RFIDAccess` and `FingerprintAccess` implement the `AccessMethod` interface (Strategy pattern).
 - **EventBus (Observer):** publishes `AccessGranted/Denied`, `Locked/Unlocked`, consumed by `BuzzerLEDFeedback`.
 - **Lock actuator abstraction:** `LockActuator` + `SolenoidLockActuator` (relay/solenoid). Auto‑lock timer built in.
@@ -24,7 +24,7 @@ Group - 9
 
 ---
 
-## 🧱 Environments
+most important Environments
 The default env is the **stub** (no hardware).
 
 ```ini
