@@ -1,46 +1,89 @@
-Group - 9
+# Group - 9
 
-# Dual-Mode-Smart-Door-Lock-Fingerprint-RFID-project-phase--2
+# Dual-Mode-Smart-Door-Lock-Fingerprint-RFID-project-phase--2  
 
-# Dual‑Mode Smart Door Lock (Fingerprint + RFID)  (ESP32)
-
-> **Phase‑2 friendly:** this repo includes a **hardware‑free STUB build** you can compile and demo **without any devices**. It also ships a ready **real‑hardware** env for later, using the **same OOP architecture**.
+# Dual‑Mode Smart Door Lock (Fingerprint + RFID) — ESP32  
 
 ---
 
-  INFOrmation
-- **No hardware today?** Build the **stub** env. Show the local **SUCCESS** banner and the **GitHub Actions green check**. For expected console output
-- **Have an ESP32 (no sensors)?** Upload the **stub** firmware and simulate everything from the Serial Monitor using your keyboard.
-- **Have full hardware later?** Switch to the **real** env and wire RC522 + R307/AS608 + relay as per `include/Config.h`.
+# **IMPORTANT — WE ALSO BUILT A FULL PROTOTYPE IN TINKERCAD**  
+###  **TinkerCAD Simulation (Fingerprint + RFID Door Lock Prototype):**  
+### 🔗 https://www.tinkercad.com/things/8yYgeJT8fvm-copy-of-fingerprint-doorlock  
+This prototype shows the **virtual circuit**, **RFID**, **fingerprint module**, **servo lock**, and **logic wiring**.  
+We created this to demonstrate the concept visually before real‑hardware testing.  
+**(Instructor‑friendly + visually clear + easy to demo!)**
 
 ---
 
-##  Features
-- **Dual authentication strategies (OOP):** `RFIDAccess` and `FingerprintAccess` implement the `AccessMethod` interface (Strategy pattern).
-- **EventBus (Observer):** publishes `AccessGranted/Denied`, `Locked/Unlocked`, consumed by `BuzzerLEDFeedback`.
-- **Lock actuator abstraction:** `LockActuator` + `SolenoidLockActuator` (relay/solenoid). Auto‑lock timer built in.
-- **Persistent authorization:** `AuthStorage` (LittleFS + ArduinoJson v7) stores `/authorized.json` with `rfid_uids` and `fp_ids`.
-- **Admin Mode:** add/remove **RFID UIDs** and **FP template IDs** (in STUB, driven by keyboard; in real hardware, guarded by admin card + buttons).
+> **Phase‑2 friendly:** This repo includes a **hardware‑free STUB build** you can compile and demo **without any sensors**, plus a **real‑hardware environment** using the same OOP codebase.
 
 ---
 
-most important Environments
-The default env is the **stub** (no hardware)
+# 🛈 INFORMATION
+
+- **No hardware today?**  
+  Build the **stub environment**. It shows the local **SUCCESS** banner and GitHub Actions **green check**.  
+  (Perfect for Phase‑2 demonstration.)
+
+- **Have an ESP32 (but no sensors)?**  
+  Upload the **stub firmware** and simulate everything from the **Serial Monitor** using your keyboard.
+
+- **Have full hardware later?**  
+  Switch to the **real environment** and wire RC522 + R307/AS608 + Relay as defined in `include/Config.h`.
+
+---
+
+#  Features
+
+- **Dual authentication strategies (OOP):**  
+  `RFIDAccess` and `FingerprintAccess` implement the common `AccessMethod` interface (Strategy Pattern).
+
+- **EventBus (Observer Pattern):**  
+  Publishes:  
+  - `AccessGranted`  
+  - `AccessDenied`  
+  - `Locked`  
+  - `Unlocked`  
+  And is consumed by: `BuzzerLEDFeedback`.
+
+- **Lock Actuator Abstraction:**  
+  `LockActuator` → `SolenoidLockActuator` (relay/solenoid).  
+  Includes **auto‑lock timer**.
+
+- **Persistent Authorization:**  
+  `AuthStorage` (LittleFS + ArduinoJson v7) stores `/authorized.json` containing:
+  - `rfid_uids`
+  - `fp_ids`
+
+- **Admin Mode:**  
+  Add/remove:
+  - **RFID UIDs**
+  - **Fingerprint template IDs**
+
+  In STUB mode → controlled by **keyboard**  
+  In REAL mode → controlled by **admin card + physical buttons**
+
+---
+
+# Most Important Environments
+
+The **default environment** is the **stub** (no hardware required):
 
 ```ini
 [platformio]
 default_envs = esp32dev_stub
 
-[env:esp32dev_stub]  # ✅ build me for Phase‑2
+[env:esp32dev_stub]  # ✅ Build me for Phase‑2
 platform = espressif32
 board = esp32dev
 build_flags = -D STUB_MODE=1
 lib_deps = ArduinoJson @ ^7.0.4
 
-[env:esp32dev_real]  # for later (real RC522 + R307)
+[env:esp32dev_real]  # For later (real RC522 + R307 hardware)
 platform = espressif32
 board = esp32dev
 lib_deps =
   ArduinoJson @ ^7.0.4
   miguelbalboa/MFRC522 @ ^1.4.10
   adafruit/Adafruit Fingerprint Sensor Library @ ^2.1.1
+```
